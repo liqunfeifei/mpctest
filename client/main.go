@@ -10,6 +10,7 @@ import (
 	"github.com/libp2p/go-libp2p/core/peer"
 	log "github.com/sirupsen/logrus"
 	"helloworld.com/okx_mpc/common"
+	"helloworld.com/okx_mpc/protocols/keygen"
 	"helloworld.com/okx_mpc/protocols/prekeygen"
 )
 
@@ -19,7 +20,7 @@ var p2pProtocol = map[string]string{
 
 func init() {
 	log.SetOutput(os.Stdout)
-	log.SetLevel(log.InfoLevel)
+	log.SetLevel(log.DebugLevel)
 	log.SetFormatter(&common.MyFormatter{})
 }
 
@@ -61,6 +62,9 @@ func startAll(threshold int, n *common.Network, message []byte, peers []peer.Add
 	}
 
 	r := prekeygen.StartPrekeygeC(n, &helper)
+	common.HandlerLoop(r, n)
+
+	r = keygen.StartKeygeC(n, &helper)
 	common.HandlerLoop(r, n)
 
 	time.Sleep(time.Second * 1)

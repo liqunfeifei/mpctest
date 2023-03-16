@@ -1,7 +1,11 @@
 package common
 
 import (
+	"fmt"
+
+	"github.com/fxamacker/cbor/v2"
 	"github.com/libp2p/go-libp2p/core/peer"
+	"github.com/okx/threshold-lib/tss"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -14,8 +18,39 @@ type Helper struct {
 }
 
 func (h *Helper) SendMessage(msg *Message, to int) error {
+	log.Infoln("Send msg, From:", msg.From, "to:", to)
 	h.Net.SendMessage(to, msg)
 	return nil
+}
+
+func (h *Helper) SendTssMessage(tmsg *tss.Message, to int, round int) error {
+	msg := h.Tssmsg2Msg(tmsg, to, round)
+	h.SendMessage(msg, to)
+
+	return nil
+}
+
+func (h *Helper) Tssmsg2Msg(tmsg *tss.Message, to int, round int) *Message {
+	data, err := cbor.Marshal(tmsg)
+	if err != nil {
+		panic(fmt.Errorf("failed to marshal round message: %w", err))
+	}
+	log.Println("Cbor data length:", len(data))
+
+	msg := &Message{
+		From:        h.MachineId,
+		To:          to,
+		Protocol:    h.Protocol,
+		RoundNumber: round,
+		Data:        data,
+	}
+	return msg
+}
+
+func (h *Helper) Msg2Tssmsg(msg *Message) *tss.Message {
+	var tssMsg tss.Message
+	cbor.Unmarshal(msg.Data, &tssMsg)
+	return &tssMsg
 }
 
 func (h *Helper) SaveMessage(msg *Message) {

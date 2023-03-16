@@ -23,7 +23,7 @@ func (r *round1S) Finalize() common.Round {
 	// r.PeerId[0] = r.Net.SelfID
 	// peersList[0] = r.PeerId[0].String()
 	msg1.Parties[r.Net.SelfID.String()] = r.MachineId
-	i := 1
+	i := 2
 	for _, p := range r.Peers() {
 		r.PeerId[i] = p.ID
 		r.Net.PeerID[i] = p.ID

@@ -39,8 +39,5 @@ func (r *round1C) StoreMessage(msg *common.Message) error {
 }
 func (r *round1C) Number() int { return 1 }
 func (r *round1C) ReceivedAll() bool {
-	if len(r.Msgs[r.Number()]) >= 1 {
-		return true
-	}
-	return false
+	return len(r.Msgs[r.Number()]) == 1
 }

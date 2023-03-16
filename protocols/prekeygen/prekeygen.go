@@ -9,10 +9,10 @@ var totalRound = 1
 
 // var maxMsgCount = 10
 
-func StartPrekeygeS(n *common.Network, helper *common.Helper) *round1S {
+func StartPrekeygeS(n *common.Network, helper *common.Helper) common.Round {
 
 	helper.Protocol = protocol
-	helper.MachineId = 0
+	helper.MachineId = 1
 	helper.Msgs = common.NewMsgQueue(totalRound)
 
 	r1 := &round1S{
@@ -21,7 +21,7 @@ func StartPrekeygeS(n *common.Network, helper *common.Helper) *round1S {
 	return r1
 }
 
-func StartPrekeygeC(n *common.Network, helper *common.Helper) *round1C {
+func StartPrekeygeC(n *common.Network, helper *common.Helper) common.Round {
 
 	helper.Protocol = protocol
 	helper.Msgs = common.NewMsgQueue(totalRound)
