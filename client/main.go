@@ -54,7 +54,13 @@ func main() {
 func startAll(threshold int, n *common.Network, message []byte, peers []peer.AddrInfo, mId int) error {
 	// r := prekeygen.StartPrekeygeS(n)
 	// common.HandlerLoop(r)
-	r := prekeygen.StartPrekeygeC(n)
+	helper := common.Helper{
+		Net:       n,
+		PeerId:    make(map[int]peer.ID),
+		MachineId: 0,
+	}
+
+	r := prekeygen.StartPrekeygeC(n, &helper)
 	common.HandlerLoop(r, n)
 
 	time.Sleep(time.Second * 1)

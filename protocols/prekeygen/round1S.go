@@ -10,7 +10,6 @@ import (
 
 type round1S struct {
 	*common.Helper
-	Info *common.SetupInfo
 }
 
 type message1 struct {

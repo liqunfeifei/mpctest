@@ -1,33 +1,9 @@
 package common
 
 import (
-	"crypto/elliptic"
-	"math/big"
-
 	"github.com/libp2p/go-libp2p/core/peer"
-	"github.com/okx/threshold-lib/crypto/commitment"
-	"github.com/okx/threshold-lib/crypto/curves"
-	"github.com/okx/threshold-lib/crypto/vss"
 	log "github.com/sirupsen/logrus"
 )
-
-type SetupInfo struct {
-	DeviceNumber int // device id， start 1
-	Threshold    int //  2/n, fixed 2
-	Total        int // number of participants
-	RoundNumber  int
-
-	ui        *big.Int
-	shareI    *big.Int // key share
-	publicKey *curves.ECPoint
-	Curve     elliptic.Curve
-	chaincode *big.Int // for non-hardened derivation, unchangeable
-
-	verifiers     []*curves.ECPoint
-	secretShares  []*vss.Share
-	deC           *commitment.Witness
-	commitmentMap map[int]commitment.Commitment
-}
 
 type Helper struct {
 	PeerId    map[int]peer.ID

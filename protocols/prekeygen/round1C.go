@@ -9,7 +9,6 @@ import (
 
 type round1C struct {
 	*common.Helper
-	Info *common.SetupInfo
 }
 
 func (r *round1C) Finalize() common.Round {
@@ -22,7 +21,6 @@ func (r *round1C) Finalize() common.Round {
 			if id == r.Net.SelfID.String() {
 				log.Println("myid:", id, "mid:", mid)
 				r.MachineId = mid
-				r.Info.DeviceNumber = mid + 1
 				break
 			} else if id == addr.ID.String() {
 				log.Println("id:", id, "mid:", mid)
