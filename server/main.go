@@ -4,11 +4,14 @@ import (
 	"context"
 	"flag"
 	"os"
+	"time"
 
+	"github.com/btcsuite/btcd/btcec"
 	"github.com/libp2p/go-libp2p"
 	"github.com/libp2p/go-libp2p/core/peer"
 	log "github.com/sirupsen/logrus"
 	"helloworld.com/okx_mpc/common"
+	"helloworld.com/okx_mpc/protocols/prekeygen"
 )
 
 var p2pProtocol = map[string]string{
@@ -50,5 +53,20 @@ func main() {
 }
 
 func startAll(threshold int, n *common.Network, message []byte, peers []peer.AddrInfo, mId int) error {
+	info := common.SetupInfo{
+		Threshold: 2,
+		Total:     3,
+		Curve:     btcec.S256(),
+	}
+	helper := common.Helper{
+		Net:       n,
+		PeerId:    make(map[int]peer.ID),
+		MachineId: 0,
+	}
+
+	r := prekeygen.StartPrekeygeS(n, &info, &helper)
+	common.HandlerLoop(r, n)
+
+	time.Sleep(time.Second * 1)
 	return nil
 }

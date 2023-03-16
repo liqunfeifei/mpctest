@@ -1,8 +1,8 @@
 package common
 
 type Round interface {
-	Finalize() error
-	StoreMessage(msg Message) error
-	Number() uint16
+	Finalize() Round
+	StoreMessage(msg *Message) error
+	Number() int
 	ReceivedAll() bool
 }

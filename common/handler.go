@@ -1,10 +1,20 @@
 package common
 
-func HandlerLoop(r Round) {
+import (
+	log "github.com/sirupsen/logrus"
+)
+
+func HandlerLoop(firstround Round, n *Network) {
+	r := firstround
 	for {
-		if !r.ReceivedAll() {
-			continue
+		if r.ReceivedAll() {
+			r := r.Finalize()
+			if r == nil {
+				log.Info("Round finish.")
+				break
+			}
 		}
-		r.Finalize()
+		msgIn := <-n.inChan
+		r.StoreMessage(msgIn)
 	}
 }

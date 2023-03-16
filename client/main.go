@@ -4,9 +4,13 @@ import (
 	"context"
 	"flag"
 	"os"
+	"time"
 
 	"github.com/libp2p/go-libp2p"
+	"github.com/libp2p/go-libp2p/core/peer"
 	log "github.com/sirupsen/logrus"
+	"helloworld.com/okx_mpc/common"
+	"helloworld.com/okx_mpc/protocols/prekeygen"
 )
 
 var p2pProtocol = map[string]string{
@@ -16,13 +20,13 @@ var p2pProtocol = map[string]string{
 func init() {
 	log.SetOutput(os.Stdout)
 	log.SetLevel(log.InfoLevel)
-	log.SetFormatter(&MyFormatter{})
+	log.SetFormatter(&common.MyFormatter{})
 }
 
 func main() {
 	protocolFlag := flag.String("protocol", "defaultprotocol", "sepecify a protocol")
 	partyNumFlag := flag.Int("n", 3, "total parties")
-	thresholdFlag := flag.Int("t", 1, "threshold")
+	thresholdFlag := flag.Int("t", 2, "threshold")
 	machineIDFlag := flag.Int("i", 0, "machine id")
 	timeoutFlag := flag.Int("timeout", 20, "timeout(seconds)")
 
@@ -39,9 +43,20 @@ func main() {
 
 	log.Infoln("My ID: ", h.ID().String())
 
-	network, peers, err := InitNetwork(ctx, h, p2pProtocol[*protocolFlag], *partyNumFlag, *timeoutFlag)
+	network, peers, err := common.InitNetwork(ctx, h, p2pProtocol[*protocolFlag], *partyNumFlag, *timeoutFlag)
 	if err != nil {
 		panic(err)
 	}
 
+	startAll(*thresholdFlag, network, []byte("hello"), peers, *machineIDFlag)
+}
+
+func startAll(threshold int, n *common.Network, message []byte, peers []peer.AddrInfo, mId int) error {
+	// r := prekeygen.StartPrekeygeS(n)
+	// common.HandlerLoop(r)
+	r := prekeygen.StartPrekeygeC(n)
+	common.HandlerLoop(r, n)
+
+	time.Sleep(time.Second * 1)
+	return nil
 }

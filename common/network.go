@@ -20,21 +20,21 @@ type Network struct {
 	host      host.Host
 	ctx       context.Context
 	protocol  string
-	peerID    map[int]peer.ID
-	selfID    peer.ID
-	machineId int
+	PeerID    map[int]peer.ID
+	SelfID    peer.ID
+	MachineId int
 	inChan    chan *Message
 	outChan   chan *Message
 	peers     []peer.AddrInfo
 }
 
-func InitNetwork(ctx context.Context, h host.Host, protocolName string, parties int, isServer bool, timeout int) (*Network, []peer.AddrInfo, error) {
+func InitNetwork(ctx context.Context, h host.Host, protocolName string, parties int, timeout int) (*Network, []peer.AddrInfo, error) {
 	n := &Network{
 		host:     h,
 		ctx:      ctx,
 		protocol: protocolName,
-		peerID:   make(map[int]peer.ID),
-		selfID:   h.ID(),
+		PeerID:   make(map[int]peer.ID),
+		SelfID:   h.ID(),
 		inChan:   make(chan *Message, 20),
 		outChan:  make(chan *Message, 20),
 	}
@@ -66,7 +66,7 @@ func (n *Network) SendMessage(id int, msg *Message) {
 		log.Panicln("Marshal failed! ", err)
 	}
 
-	s, err := n.host.NewStream(n.ctx, n.peerID[id], protocol.ID(n.protocol))
+	s, err := n.host.NewStream(n.ctx, n.PeerID[id], protocol.ID(n.protocol))
 	if err != nil {
 		log.Panicln("Stream open failed! ", err)
 	}
