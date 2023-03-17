@@ -13,7 +13,7 @@ type round1C struct {
 
 func (r *round1C) Finalize() common.Round {
 	var data message1
-	msg := r.Msgs[r.Number()][0]
+	msg := r.Msgs[r.Protocol][r.Number()][0]
 	cbor.Unmarshal(msg.Data, &data)
 
 	for id, mid := range data.Parties {
@@ -39,5 +39,5 @@ func (r *round1C) StoreMessage(msg *common.Message) error {
 }
 func (r *round1C) Number() int { return 1 }
 func (r *round1C) ReceivedAll() bool {
-	return len(r.Msgs[r.Number()]) == 1
+	return len(r.Msgs[r.Protocol][r.Number()]) == 1
 }

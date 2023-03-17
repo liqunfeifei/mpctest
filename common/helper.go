@@ -9,12 +9,22 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+const (
+	ProtocolPrekeygen = "Prekeygen"
+	ProtocolKeygen    = "Keygen"
+	ProtocolSign      = "Sign"
+	ProtocolBip32     = "Bip32"
+	ProtocolRefresh   = "Refresh"
+)
+
+type ProtocolMsgs map[int][]*Message
+
 type Helper struct {
 	PeerId    map[int]peer.ID
 	Protocol  string
 	MachineId int
 	Net       *Network
-	Msgs      map[int][]*Message
+	Msgs      map[string]ProtocolMsgs
 }
 
 func (h *Helper) SendMessage(msg *Message, to int) error {
@@ -53,7 +63,8 @@ func (h *Helper) Msg2Tssmsg(msg *Message) *tss.Message {
 }
 
 func (h *Helper) SaveMessage(msg *Message) {
-	h.Msgs[msg.RoundNumber] = append(h.Msgs[msg.RoundNumber], msg)
+	h.Msgs[msg.Protocol][msg.RoundNumber] = append(h.Msgs[msg.Protocol][msg.RoundNumber], msg)
+	// h.Msgs[msg.RoundNumber] = append(h.Msgs[msg.RoundNumber], msg)
 }
 
 func (h *Helper) Peers() []peer.AddrInfo {
@@ -65,11 +76,16 @@ func DumpMsg(msg *Message) {
 		msg.From, msg.To, msg.Protocol, msg.RoundNumber, len(msg.Data), msg.Data)
 }
 
-func NewMsgQueue(rounds int) map[int][]*Message {
-	msgMap := make(map[int][]*Message)
+func NewMsgQueue() map[string]ProtocolMsgs {
+	round := 10
 
-	for i := 1; i <= rounds; i++ {
-		msgMap[i] = make([]*Message, 0)
+	msgMap := make(map[string]ProtocolMsgs)
+
+	for _, p := range []string{ProtocolPrekeygen, ProtocolKeygen, ProtocolSign, ProtocolBip32, ProtocolRefresh} {
+		msgMap[p] = make(ProtocolMsgs)
+		for i := 1; i <= round; i++ {
+			msgMap[p][i] = make([]*Message, 0)
+		}
 	}
 	return msgMap
 }

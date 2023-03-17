@@ -4,16 +4,14 @@ import (
 	"helloworld.com/okx_mpc/common"
 )
 
-var protocol = "Prekeygen"
 var totalRound = 1
 
 // var maxMsgCount = 10
 
 func StartPrekeygeS(n *common.Network, helper *common.Helper) common.Round {
 
-	helper.Protocol = protocol
+	helper.Protocol = common.ProtocolPrekeygen
 	helper.MachineId = 1
-	helper.Msgs = common.NewMsgQueue(totalRound)
 
 	r1 := &round1S{
 		Helper: helper,
@@ -23,8 +21,7 @@ func StartPrekeygeS(n *common.Network, helper *common.Helper) common.Round {
 
 func StartPrekeygeC(n *common.Network, helper *common.Helper) common.Round {
 
-	helper.Protocol = protocol
-	helper.Msgs = common.NewMsgQueue(totalRound)
+	helper.Protocol = common.ProtocolPrekeygen
 
 	r1 := &round1C{
 		Helper: helper,

@@ -1,8 +1,6 @@
 package keygen
 
 import (
-	"time"
-
 	"github.com/okx/threshold-lib/tss/key/dkg"
 	"helloworld.com/okx_mpc/common"
 )
@@ -13,7 +11,6 @@ type round1S struct {
 }
 
 func (r *round1S) Finalize() common.Round {
-	time.Sleep(time.Second * 1)
 	msgs1_1, _ := r.Info.DKGStep1()
 
 	for i := 1; i <= r.Info.Total; i++ {

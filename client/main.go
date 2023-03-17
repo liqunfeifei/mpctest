@@ -59,6 +59,7 @@ func startAll(threshold int, n *common.Network, message []byte, peers []peer.Add
 		Net:       n,
 		PeerId:    make(map[int]peer.ID),
 		MachineId: 0,
+		Msgs:      common.NewMsgQueue(),
 	}
 
 	r := prekeygen.StartPrekeygeC(n, &helper)

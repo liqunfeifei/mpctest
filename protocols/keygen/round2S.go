@@ -14,7 +14,7 @@ type round2S struct {
 func (r *round2S) get_tmsgs() []*tss.Message {
 	var msg_list []*tss.Message
 
-	for _, msg := range r.Msgs[r.Number()] {
+	for _, msg := range r.Msgs[r.Protocol][r.Number()] {
 		msg_list = append(msg_list, r.Msg2Tssmsg(msg))
 	}
 	return msg_list
@@ -45,5 +45,5 @@ func (r *round2S) StoreMessage(msg *common.Message) error {
 }
 func (r *round2S) Number() int { return 2 }
 func (r *round2S) ReceivedAll() bool {
-	return len(r.Msgs[r.Number()]) == 2
+	return len(r.Msgs[r.Protocol][r.Number()]) == 2
 }

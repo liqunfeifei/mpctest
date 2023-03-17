@@ -8,16 +8,13 @@ import (
 
 var (
 	curve      = btcec.S256()
-	protocol   = "Keygen"
 	totalRound = 1
 )
 
 // var maxMsgCount = 10
 
 func StartKeygeS(n *common.Network, helper *common.Helper) common.Round {
-	helper.Protocol = protocol
-	helper.Msgs = common.NewMsgQueue(totalRound)
-
+	helper.Protocol = common.ProtocolKeygen
 	r1 := &round1S{
 		Helper: helper,
 		Info:   dkg.NewSetUp(helper.MachineId, 3, curve),
@@ -26,9 +23,7 @@ func StartKeygeS(n *common.Network, helper *common.Helper) common.Round {
 }
 
 func StartKeygeC(n *common.Network, helper *common.Helper) common.Round {
-	helper.Protocol = protocol
-	helper.Msgs = common.NewMsgQueue(totalRound)
-
+	helper.Protocol = common.ProtocolKeygen
 	r1 := &round1C{
 		Helper: helper,
 		Info:   dkg.NewSetUp(helper.MachineId, 3, curve),

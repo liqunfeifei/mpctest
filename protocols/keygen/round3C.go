@@ -16,7 +16,7 @@ type round3C struct {
 func (r *round3C) get_tmsgs() []*tss.Message {
 	var tmsg_list []*tss.Message
 
-	for _, msg := range r.Msgs[r.Number()] {
+	for _, msg := range r.Msgs[r.Protocol][r.Number()] {
 		tmsg_list = append(tmsg_list, r.Msg2Tssmsg(msg))
 	}
 	return tmsg_list
@@ -35,5 +35,5 @@ func (r *round3C) StoreMessage(msg *common.Message) error {
 }
 func (r *round3C) Number() int { return 3 }
 func (r *round3C) ReceivedAll() bool {
-	return len(r.Msgs[r.Number()]) == 2
+	return len(r.Msgs[r.Protocol][r.Number()]) == 2
 }
