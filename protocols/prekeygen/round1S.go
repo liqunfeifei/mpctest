@@ -36,7 +36,6 @@ func (r *round1S) Finalize() common.Round {
 	if err != nil {
 		panic(fmt.Errorf("failed to marshal round message: %w", err))
 	}
-	log.Println("Cbor data length:", len(data))
 
 	for id := range r.PeerId {
 		msg := &common.Message{

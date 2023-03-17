@@ -7,15 +7,16 @@ import (
 func HandlerLoop(firstround Round, n *Network) {
 	r := firstround
 	for {
-		if !r.ReceivedAll() {
-			msgIn := <-n.inChan
-			r.StoreMessage(msgIn)
+		if r.ReceivedAll() {
+			log.Debugf("Round%d Finalize start", r.Number())
+			r = r.Finalize()
+			if r == nil {
+				log.Info("Round finish.")
+				break
+			}
 		}
-		log.Debugf("Round%d Finalize start", r.Number())
-		r = r.Finalize()
-		if r == nil {
-			log.Info("Round finish.")
-			break
-		}
+
+		msgIn := <-n.inChan
+		r.StoreMessage(msgIn)
 	}
 }

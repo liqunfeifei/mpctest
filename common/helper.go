@@ -35,7 +35,6 @@ func (h *Helper) Tssmsg2Msg(tmsg *tss.Message, to int, round int) *Message {
 	if err != nil {
 		panic(fmt.Errorf("failed to marshal round message: %w", err))
 	}
-	log.Println("Cbor data length:", len(data))
 
 	msg := &Message{
 		From:        h.MachineId,
