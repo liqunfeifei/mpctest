@@ -1,10 +1,8 @@
 package prekeygen
 
 import (
-	"fmt"
-	"log"
-
 	"github.com/fxamacker/cbor/v2"
+	log "github.com/sirupsen/logrus"
 	"helloworld.com/okx_mpc/common"
 )
 
@@ -34,7 +32,7 @@ func (r *round1S) Finalize() common.Round {
 
 	data, err := cbor.Marshal(msg1)
 	if err != nil {
-		panic(fmt.Errorf("failed to marshal round message: %w", err))
+		log.Panicf("failed to marshal round message: %w", err)
 	}
 
 	for id := range r.PeerId {

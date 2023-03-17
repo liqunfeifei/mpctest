@@ -7,8 +7,7 @@ import (
 )
 
 var (
-	curve      = btcec.S256()
-	totalRound = 1
+	curve = btcec.S256()
 )
 
 // var maxMsgCount = 10

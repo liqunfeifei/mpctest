@@ -25,8 +25,13 @@ func (r *round3S) get_tmsgs() []*tss.Message {
 func (r *round3S) Finalize() common.Round {
 	msgs1_3_in := r.get_tmsgs()
 	p1SaveData, _ := r.Info.DKGStep3(msgs1_3_in)
+	r.KeyInfo = p1SaveData
 	fmt.Println("setUp1", p1SaveData, p1SaveData.PublicKey)
-	return nil
+	round4 := &round4S{
+		Helper: r.Helper,
+		Info:   r.Info,
+	}
+	return round4
 }
 func (r *round3S) StoreMessage(msg *common.Message) error {
 	common.DumpMsg(msg)

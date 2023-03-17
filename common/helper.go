@@ -1,11 +1,15 @@
 package common
 
 import (
+	"crypto/ecdsa"
 	"fmt"
 
 	"github.com/fxamacker/cbor/v2"
 	"github.com/libp2p/go-libp2p/core/peer"
+	"github.com/okx/threshold-lib/crypto/paillier"
 	"github.com/okx/threshold-lib/tss"
+	"github.com/okx/threshold-lib/tss/ecdsa/keygen"
+	"github.com/okx/threshold-lib/tss/key/bip32"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -25,6 +29,12 @@ type Helper struct {
 	MachineId int
 	Net       *Network
 	Msgs      map[string]ProtocolMsgs
+
+	KeyInfo    *tss.KeyStep3Data
+	P2SaveData *keygen.P2SaveData
+	paiPrivate *paillier.PrivateKey
+	Pubkey     *ecdsa.PublicKey
+	Tsskey     *bip32.TssKey
 }
 
 func (h *Helper) SendMessage(msg *Message, to int) error {

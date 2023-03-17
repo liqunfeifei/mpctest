@@ -11,12 +11,13 @@ func HandlerLoop(firstround Round, n *Network) {
 			log.Debugf("Round%d Finalize start", r.Number())
 			r = r.Finalize()
 			if r == nil {
-				log.Info("Round finish.")
+				log.Info("Protocol finish.")
 				break
 			}
+		} else {
+			msgIn := <-n.inChan
+			r.StoreMessage(msgIn)
 		}
 
-		msgIn := <-n.inChan
-		r.StoreMessage(msgIn)
 	}
 }

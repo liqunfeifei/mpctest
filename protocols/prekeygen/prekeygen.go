@@ -4,8 +4,6 @@ import (
 	"helloworld.com/okx_mpc/common"
 )
 
-var totalRound = 1
-
 // var maxMsgCount = 10
 
 func StartPrekeygeS(n *common.Network, helper *common.Helper) common.Round {
