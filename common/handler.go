@@ -8,7 +8,7 @@ func HandlerLoop(firstround Round, n *Network) {
 	r := firstround
 	for {
 		if r.ReceivedAll() {
-			log.Debugf("Round%d Finalize start", r.Number())
+			log.Debugf("%s Round%d Finalize start", r.Proto(), r.Number())
 			r = r.Finalize()
 			if r == nil {
 				log.Info("Protocol finish.")

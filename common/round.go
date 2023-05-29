@@ -5,4 +5,5 @@ type Round interface {
 	StoreMessage(msg *Message) error
 	Number() int
 	ReceivedAll() bool
+	Proto() string
 }

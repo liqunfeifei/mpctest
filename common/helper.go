@@ -30,9 +30,10 @@ type Helper struct {
 	Net       *Network
 	Msgs      map[string]ProtocolMsgs
 
+	Signer     int
 	KeyInfo    *tss.KeyStep3Data
 	P2SaveData *keygen.P2SaveData
-	paiPrivate *paillier.PrivateKey
+	PaiPrivate *paillier.PrivateKey
 	Pubkey     *ecdsa.PublicKey
 	Tsskey     *bip32.TssKey
 }

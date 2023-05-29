@@ -43,7 +43,8 @@ func (r *round2C) StoreMessage(msg *common.Message) error {
 	r.SaveMessage(msg)
 	return nil
 }
-func (r *round2C) Number() int { return 2 }
+func (r *round2C) Proto() string { return r.Protocol }
+func (r *round2C) Number() int   { return 2 }
 func (r *round2C) ReceivedAll() bool {
 	return len(r.Msgs[r.Protocol][r.Number()]) == 2
 }

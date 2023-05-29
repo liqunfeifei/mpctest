@@ -32,5 +32,6 @@ func (r *round1S) StoreMessage(msg *common.Message) error {
 	r.SaveMessage(msg)
 	return nil
 }
+func (r *round1S) Proto() string     { return r.Protocol }
 func (r *round1S) Number() int       { return 1 }
 func (r *round1S) ReceivedAll() bool { return true }

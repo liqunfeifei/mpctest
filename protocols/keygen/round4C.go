@@ -33,10 +33,10 @@ func (r *round4C) Finalize() common.Round {
 	if error != nil {
 		log.Errorln(error)
 	}
-	log.Infoln("p", r.MachineId, "Data", pnData)
+	// log.Infoln("p", r.MachineId, "Data", pnData)
 
 	r.P2SaveData = pnData
-	log.Infoln("P", r.MachineId, pnData)
+	// log.Infoln("P", r.MachineId, pnData)
 
 	log.Infoln("=========bip32==========")
 	tssKey, err := bip32.NewTssKey(pnData.X2, r.KeyInfo.PublicKey, r.KeyInfo.ChainCode)
@@ -60,7 +60,8 @@ func (r *round4C) StoreMessage(msg *common.Message) error {
 	r.SaveMessage(msg)
 	return nil
 }
-func (r *round4C) Number() int { return 4 }
+func (r *round4C) Proto() string { return r.Protocol }
+func (r *round4C) Number() int   { return 4 }
 func (r *round4C) ReceivedAll() bool {
 	return len(r.Msgs[r.Protocol][r.Number()]) == 1
 }

@@ -1,4 +1,4 @@
-package keygen
+package sign
 
 import (
 	"github.com/btcsuite/btcd/btcec"

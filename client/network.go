@@ -78,7 +78,6 @@ func (n *Network) SendMessage(id string, msg *mpcProtocol.Message) {
 }
 
 func (n *Network) handleStream(s network.Stream) {
-	log.Debug("Got a new stream!")
 	rw := bufio.NewReadWriter(bufio.NewReader(s), bufio.NewWriter(s))
 	go readData(rw, n.inChan)
 }
@@ -92,6 +91,7 @@ func readData(rw *bufio.ReadWriter, ch chan *mpcProtocol.Message) {
 	if err != nil {
 		log.Panicln("Error reading from buffer. ", err)
 	}
+	log.Debugf("New stream! (%d Bytes)", len(buf))
 	// fmt.Println("received data: ", buf)
 	msg := new(mpcProtocol.Message)
 	err = msg.UnmarshalBinary(buf)

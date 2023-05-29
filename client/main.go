@@ -12,6 +12,7 @@ import (
 	"helloworld.com/okx_mpc/common"
 	"helloworld.com/okx_mpc/protocols/keygen"
 	"helloworld.com/okx_mpc/protocols/prekeygen"
+	"helloworld.com/okx_mpc/protocols/sign"
 )
 
 var p2pProtocol = map[string]string{
@@ -60,12 +61,21 @@ func startAll(threshold int, n *common.Network, message []byte, peers []peer.Add
 		PeerId:    make(map[int]peer.ID),
 		MachineId: 0,
 		Msgs:      common.NewMsgQueue(),
+		Signer:    2,
 	}
 
 	r := prekeygen.StartPrekeygeC(n, &helper)
 	common.HandlerLoop(r, n)
 
 	r = keygen.StartKeygeC(n, &helper)
+	common.HandlerLoop(r, n)
+
+	if helper.MachineId != helper.Signer {
+		log.Infoln("Not Signer, quit.")
+		return nil
+	}
+
+	r = sign.StartSignC(n, &helper)
 	common.HandlerLoop(r, n)
 
 	time.Sleep(time.Second * 1)

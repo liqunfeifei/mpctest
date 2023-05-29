@@ -66,6 +66,7 @@ func (n *Network) SendMessage(id int, msg *Message) {
 		log.Panicln("Marshal failed! ", err)
 	}
 
+	log.Debugln(len(data), "Bytes")
 	s, err := n.host.NewStream(n.ctx, n.PeerID[id], protocol.ID(n.protocol))
 	if err != nil {
 		log.Panicln("Stream open failed! ", err)
@@ -82,7 +83,6 @@ func (n *Network) SendMessage(id int, msg *Message) {
 }
 
 func (n *Network) handleStream(s network.Stream) {
-	log.Debug("Got a new stream!")
 	rw := bufio.NewReadWriter(bufio.NewReader(s), bufio.NewWriter(s))
 	go readData(rw, n.inChan)
 }
@@ -96,7 +96,7 @@ func readData(rw *bufio.ReadWriter, ch chan *Message) {
 	if err != nil {
 		log.Panicln("Error reading from buffer. ", err)
 	}
-	// fmt.Println("received data: ", buf)
+	log.Debugf("New stream! (%d Bytes)", len(buf))
 	msg := new(Message)
 	err = msg.UnmarshalBinary(buf)
 	if err != nil {

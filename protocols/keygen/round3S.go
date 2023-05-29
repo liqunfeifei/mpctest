@@ -1,8 +1,6 @@
 package keygen
 
 import (
-	"fmt"
-
 	"github.com/okx/threshold-lib/tss"
 	"github.com/okx/threshold-lib/tss/key/dkg"
 	"helloworld.com/okx_mpc/common"
@@ -26,7 +24,7 @@ func (r *round3S) Finalize() common.Round {
 	msgs1_3_in := r.get_tmsgs()
 	p1SaveData, _ := r.Info.DKGStep3(msgs1_3_in)
 	r.KeyInfo = p1SaveData
-	fmt.Println("setUp1", p1SaveData, p1SaveData.PublicKey)
+	// fmt.Println("setUp1", p1SaveData, p1SaveData.PublicKey)
 	round4 := &round4S{
 		Helper: r.Helper,
 		Info:   r.Info,
@@ -38,7 +36,8 @@ func (r *round3S) StoreMessage(msg *common.Message) error {
 	r.SaveMessage(msg)
 	return nil
 }
-func (r *round3S) Number() int { return 3 }
+func (r *round3S) Proto() string { return r.Protocol }
+func (r *round3S) Number() int   { return 3 }
 func (r *round3S) ReceivedAll() bool {
 	return len(r.Msgs[r.Protocol][r.Number()]) == 2
 }
