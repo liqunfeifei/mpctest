@@ -3,7 +3,7 @@ package prekeygen
 import (
 	"testing"
 
-	"helloworld.com/okx_mpc/common"
+	"github.com/liqunfeifei/mpctest/common"
 )
 
 func TestRound1(t *testing.T) {

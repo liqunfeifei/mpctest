@@ -1,6 +1,6 @@
 package prekeygen
 
-import "helloworld.com/okx_mpc/common"
+import "github.com/liqunfeifei/mpctest/common"
 
 type round2 struct {
 	*common.Helper

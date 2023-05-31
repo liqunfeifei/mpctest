@@ -4,7 +4,7 @@ import (
 	"crypto/ecdsa"
 
 	"github.com/fxamacker/cbor/v2"
-	"helloworld.com/okx_mpc/common"
+	"github.com/liqunfeifei/mpctest/common"
 )
 
 type round1S struct {

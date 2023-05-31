@@ -6,9 +6,9 @@ import (
 	"math/big"
 
 	"github.com/fxamacker/cbor/v2"
+	"github.com/liqunfeifei/mpctest/common"
 	"github.com/okx/threshold-lib/tss/ecdsa/sign"
 	log "github.com/sirupsen/logrus"
-	"helloworld.com/okx_mpc/common"
 )
 
 type round2C struct {

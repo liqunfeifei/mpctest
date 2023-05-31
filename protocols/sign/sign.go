@@ -2,7 +2,7 @@ package sign
 
 import (
 	"github.com/btcsuite/btcd/btcec"
-	"helloworld.com/okx_mpc/common"
+	"github.com/liqunfeifei/mpctest/common"
 )
 
 var (

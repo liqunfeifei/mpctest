@@ -2,8 +2,8 @@ package prekeygen
 
 import (
 	"github.com/fxamacker/cbor/v2"
+	"github.com/liqunfeifei/mpctest/common"
 	log "github.com/sirupsen/logrus"
-	"helloworld.com/okx_mpc/common"
 )
 
 type round1S struct {

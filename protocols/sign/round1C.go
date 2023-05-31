@@ -6,7 +6,7 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	"github.com/fxamacker/cbor/v2"
-	"helloworld.com/okx_mpc/common"
+	"github.com/liqunfeifei/mpctest/common"
 )
 
 type round1C struct {

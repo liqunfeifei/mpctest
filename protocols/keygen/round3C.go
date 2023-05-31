@@ -1,9 +1,9 @@
 package keygen
 
 import (
+	"github.com/liqunfeifei/mpctest/common"
 	"github.com/okx/threshold-lib/tss"
 	"github.com/okx/threshold-lib/tss/key/dkg"
-	"helloworld.com/okx_mpc/common"
 )
 
 type round3C struct {

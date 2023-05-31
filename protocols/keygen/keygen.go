@@ -2,8 +2,8 @@ package keygen
 
 import (
 	"github.com/btcsuite/btcd/btcec"
+	"github.com/liqunfeifei/mpctest/common"
 	"github.com/okx/threshold-lib/tss/key/dkg"
-	"helloworld.com/okx_mpc/common"
 )
 
 var (

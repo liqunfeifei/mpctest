@@ -1,7 +1,7 @@
 package prekeygen
 
 import (
-	"helloworld.com/okx_mpc/common"
+	"github.com/liqunfeifei/mpctest/common"
 )
 
 // var maxMsgCount = 10

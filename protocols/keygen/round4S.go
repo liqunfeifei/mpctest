@@ -3,11 +3,11 @@ package keygen
 import (
 	"time"
 
+	"github.com/liqunfeifei/mpctest/common"
 	"github.com/okx/threshold-lib/crypto/paillier"
 	"github.com/okx/threshold-lib/tss/ecdsa/keygen"
 	"github.com/okx/threshold-lib/tss/key/dkg"
 	log "github.com/sirupsen/logrus"
-	"helloworld.com/okx_mpc/common"
 )
 
 type round4S struct {

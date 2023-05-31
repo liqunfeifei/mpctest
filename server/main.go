@@ -8,11 +8,11 @@ import (
 
 	"github.com/libp2p/go-libp2p"
 	"github.com/libp2p/go-libp2p/core/peer"
+	"github.com/liqunfeifei/mpctest/common"
+	"github.com/liqunfeifei/mpctest/protocols/keygen"
+	"github.com/liqunfeifei/mpctest/protocols/prekeygen"
+	"github.com/liqunfeifei/mpctest/protocols/sign"
 	log "github.com/sirupsen/logrus"
-	"helloworld.com/okx_mpc/common"
-	"helloworld.com/okx_mpc/protocols/keygen"
-	"helloworld.com/okx_mpc/protocols/prekeygen"
-	"helloworld.com/okx_mpc/protocols/sign"
 )
 
 var p2pProtocol = map[string]string{

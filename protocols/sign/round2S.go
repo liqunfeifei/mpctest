@@ -7,8 +7,8 @@ import (
 	log "github.com/sirupsen/logrus"
 
 	"github.com/fxamacker/cbor/v2"
+	"github.com/liqunfeifei/mpctest/common"
 	"github.com/okx/threshold-lib/tss/ecdsa/sign"
-	"helloworld.com/okx_mpc/common"
 )
 
 type round2S struct {

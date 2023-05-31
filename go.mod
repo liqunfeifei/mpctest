@@ -1,4 +1,4 @@
-module helloworld.com/okx_mpc
+module github.com/liqunfeifei/mpctest
 
 go 1.20
 

@@ -1,7 +1,7 @@
 package sign
 
 import (
-	"helloworld.com/okx_mpc/common"
+	"github.com/liqunfeifei/mpctest/common"
 )
 
 type round4C struct {
